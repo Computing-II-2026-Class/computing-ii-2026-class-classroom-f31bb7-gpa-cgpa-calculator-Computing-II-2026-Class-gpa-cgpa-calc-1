@@ -1,6 +1,6 @@
 /*
-Name: Jakira Jumafahad
-Registration Number: [Your Registration Number]
+Name: JAKIRA JUMA FAHAD
+Registration Number: [25/U/BIO/01374/PD]
 */
 
 #include <stdio.h>
