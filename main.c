@@ -59,28 +59,26 @@ int main() {
     int sem1_scores[8], sem2_scores[8];
     int i;
 
-    /* Read Semester I scores with validation */
+    /* Read Semester I scores */
     printf("=== Enter Semester I Scores ===\n");
     for (i = 0; i < 8; i++) {
-        do {
-            printf("Score for %s (%s): ", sem1_codes[i], sem1_names[i]);
-            scanf("%d", &sem1_scores[i]);
-            if (sem1_scores[i] < 0 || sem1_scores[i] > 100) {
-                printf("Invalid score entered! Please enter a value between 0 and 100.\n");
-            }
-        } while (sem1_scores[i] < 0 || sem1_scores[i] > 100);
+        printf("Score for %s (%s): ", sem1_codes[i], sem1_names[i]);
+        scanf("%d", &sem1_scores[i]);
+        if (sem1_scores[i] < 0 || sem1_scores[i] > 100) {
+            printf("Invalid score entered\n");
+            return 1;
+        }
     }
 
-    /* Read Semester II scores with validation */
+    /* Read Semester II scores */
     printf("\n=== Enter Semester II Scores ===\n");
     for (i = 0; i < 8; i++) {
-        do {
-            printf("Score for %s (%s): ", sem2_codes[i], sem2_names[i]);
-            scanf("%d", &sem2_scores[i]);
-            if (sem2_scores[i] < 0 || sem2_scores[i] > 100) {
-                printf("Invalid score entered! Please enter a value between 0 and 100.\n");
-            }
-        } while (sem2_scores[i] < 0 || sem2_scores[i] > 100);
+        printf("Score for %s (%s): ", sem2_codes[i], sem2_names[i]);
+        scanf("%d", &sem2_scores[i]);
+        if (sem2_scores[i] < 0 || sem2_scores[i] > 100) {
+            printf("Invalid score entered\n");
+            return 1;
+        }
     }
 
     /* Calculate Semester I GPA */
@@ -123,4 +121,39 @@ int main() {
     printf("\n--- Semester I ---\n");
     printf("%-12s %-45s %5s %5s %2s %10s\n",
            "Code", "Course Name", "Score", "Grade", "GP", "Credits", "Weighted");
-    printf("%-12s %-45s %5s %5s %2s %7s %
+    printf("%-12s %-45s %5s %5s %2s %7s %8s\n",
+           "----", "-----------", "-----", "-----", "--", "-------", "--------");
+    for (i = 0; i < 8; i++) {
+        int gp = getGradePoint(sem1_scores[i]);
+        printf("%-12s %-45s %5d %5c %2d %7d %8d\n",
+               sem1_codes[i], sem1_names[i],
+               sem1_scores[i], getGrade(sem1_scores[i]),
+               gp, sem1_credits[i], gp * sem1_credits[i]);
+    }
+    printf("\nSemester I Total Credits: %d | Weighted Points: %d\n",
+           sem1_total_credits, sem1_weighted);
+
+    printf("\n--- Semester II ---\n");
+    printf("%-12s %-45s %5s %5s %2s %10s\n",
+           "Code", "Course Name", "Score", "Grade", "GP", "Credits", "Weighted");
+    printf("%-12s %-45s %5s %5s %2s %7s %8s\n",
+           "----", "-----------", "-----", "-----", "--", "-------", "--------");
+    for (i = 0; i < 8; i++) {
+        int gp = getGradePoint(sem2_scores[i]);
+        printf("%-12s %-45s %5d %5c %2d %7d %8d\n",
+               sem2_codes[i], sem2_names[i],
+               sem2_scores[i], getGrade(sem2_scores[i]),
+               gp, sem2_credits[i], gp * sem2_credits[i]);
+    }
+    printf("\nSemester II Total Credits: %d | Weighted Points: %d\n",
+           sem2_total_credits, sem2_weighted);
+
+    printf("\n============================================================\n");
+    printf("Semester I GPA: %.2f\n", gpa1);
+    printf("Semester II GPA: %.2f\n", gpa2);
+    printf("CGPA: %.2f\n", cgpa);
+    printf("Classification: %s\n", classification);
+    printf("============================================================\n");
+
+    return 0;
+}
