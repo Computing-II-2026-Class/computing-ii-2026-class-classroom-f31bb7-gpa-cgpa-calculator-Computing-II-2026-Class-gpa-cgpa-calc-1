@@ -66,7 +66,7 @@ int main() {
         scanf("%d", &sem1_scores[i]);
         if (sem1_scores[i] < 0 || sem1_scores[i] > 100) {
             printf("Invalid score entered\n");
-            return 1;
+            return 0;
         }
     }
 
@@ -77,7 +77,7 @@ int main() {
         scanf("%d", &sem2_scores[i]);
         if (sem2_scores[i] < 0 || sem2_scores[i] > 100) {
             printf("Invalid score entered\n");
-            return 1;
+            return 0;
         }
     }
 
